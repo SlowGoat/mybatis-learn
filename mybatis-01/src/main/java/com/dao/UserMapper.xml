@@ -20,7 +20,7 @@
     
     <!--    如果只有一个基本类型参数的情况，可以直接在sql中取到, 参数命名命名无所谓 id -> idhhhhhhhhha -->
     <!--    多个参数用map 或者 注解-->
-    <select id="getUserById" parameterType="int" resultType="com.pojo.User">
+    <select id="getUserById" parameterType="_int" resultType="com.pojo.User">
         select * from user where id = #{idhhhhhhhhha}
     </select>
 

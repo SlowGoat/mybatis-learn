@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--核心配置文件-->
+<configuration>
+
+    <!--    properties 标签需要放在第一行-->
+    <!--    引入外部配置文件-->
+    <!--    还可以在标签对内 添加其他属性,如果属性重名,外部配置文件的优先级更高-->
+    <properties resource="db.properties"/>
+
+    <!--    可以给实体类起别名-->
+    <typeAliases>
+        <!--        对单个实体类起别名-->
+        <!--        <typeAlias type="com.pojo.User" alias="User" />-->
+
+        <!--        自动扫描包下的实体类-->
+        <package name="com.pojo"/>
+    </typeAliases>
+
+    <environments default="test">
+
+        <environment id="development">
+            <!--            mybatis 默认的事务管理器是 jdbc-->
+            <transactionManager type="JDBC"/>
+            <!--            默认连接池是 POOLED-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis-learn?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=true&amp;serverTimezone=GMT%2B8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!--    每一个Mapper.xml 都需要在Mybatis核心配置文件中注册！-->
+    <mappers>
+        <!--        方式一: 通过xml 注册 (推荐使用)-->
+        <mapper resource="com/dao/UserMapper.xml"/>
+
+        <!--        方式二: 使用class 文件绑定注册-->
+        <!--        方式二注意点: 1. 接口和他的Mapper.xml配置文件必须同名  2.接口和他的Mapper.xml配置文件必须在同一个包下-->
+        <!--        <mapper class="com.dao.UserMapper" />-->
+
+        <!--        方式三: 使用包扫描注册-->
+        <!--        方式三注意点: 1. 接口和他的Mapper.xml配置文件必须同名  2.接口和他的Mapper.xml配置文件必须在同一个包下  和上面第二点一样 -->
+        <!--        <package name="com.dao"/>-->
+    </mappers>
+
+
+
+</configuration>
